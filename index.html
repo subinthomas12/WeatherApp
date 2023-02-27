@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://kit.fontawesome.com/6f7dc7d59c.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+
+
+    <div class="weather-app" >
+        <div class="container">
+            <div class="search-box">
+                <i class="fa-solid fa-location-dot"></i>
+                <input id="city" type="text" placeholder="Enter City Name:">
+                <button onclick="cityData()" class="fa-solid fa-magnifying-glass"></button>
+            </div>
+
+        </div>
+        <div id="result" class="weather-box">
+
+        </div>
+
+    </div>
+</body>
+<script>
+
+    function cityData() {
+        cityName = city.value
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=b41ec3be35c7dac8aabbc21ba253137a`).then(data => data.json()).then(data => displayData(data))
+    }
+
+
+    function displayData(cityData) {
+        cityName = cityData.name
+        humid = cityData.main.humidity
+        temperature = ((cityData.main.temp) - 273.15).toFixed()
+        windspeed = cityData.wind.speed
+        condition = cityData.weather[0].description
+        country=cityData.sys.country
+
+        result.innerHTML = `
+        <img src="./image/weather-2021-12-07.png" alt="">
+
+        <h2 class="city"><span><i class="fa-solid fa-location-dot"></i></span>${cityName}</h2>
+        <h1 class="temp">${temperature}°C</h1>
+        <h2 class="desc"><span><i class="fa-duotone fa-cloud-bolt-sun"></i> </span>${condition} </h2>
+        <hr>
+        <h4 class="wind"><span> <i class="fa-solid fa-wind"></i> </span>Wind Speed: ${windspeed}km/h</h4>
+        <h4 class="hum"><span> <i class="fa-solid fa-droplet"></i> </span> Humidity: ${ humid}%</h4>
+        <h4 class="count">${country}</h4>
+
+
+        `
+    }
+</script>
+
+</html>
