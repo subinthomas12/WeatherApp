@@ -16,9 +16,12 @@
 
 <body>
 
-
-
-    <div class="weather-app" >
+  
+   
+    <div class="weather-app">
+        <div>
+            <h2 id="time"></h2>
+        </div>
         <div class="container">
             <div class="search-box">
                 <i class="fa-solid fa-location-dot"></i>
@@ -29,16 +32,51 @@
         </div>
         <div id="result" class="weather-box">
 
+            <!-- <div id="resul"></div> -->
         </div>
 
     </div>
 </body>
 <script>
 
+    let time = document.getElementById("time")
+
+    setInterval(() => {
+        let d = new Date();
+        time.innerHTML = d.toLocaleTimeString();
+    }, 1000)
+
+
     function cityData() {
         cityName = city.value
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=b41ec3be35c7dac8aabbc21ba253137a`).then(data => data.json()).then(data => displayData(data))
     }
+
+    // function currentTime(){
+
+    //     date.innerHTML=new Date().toLocaleString()
+
+    //     setTimeout(currentTime,1000)
+
+
+    // }
+
+    // function formatAMPM(date) {
+    //     var hours = date.getHours();
+    //     var minutes = date.getMinutes();
+    //     var ampm = hours >= 12 ? 'pm' : 'am';
+    //     hours = hours % 12;
+    //     hours = hours ? hours : 12; // the hour '0' should be '12'
+    //     minutes = minutes < 10 ? '0' + minutes : minutes;
+    //     var strTime = hours + ':' + minutes + ' ' + ampm;
+    //     return strTime;
+    // }
+    // formatAMPM(new Date);
+    // result.innerHTML = `<h3>${formatAMPM(new Date)}</h3>`
+
+
+
+
 
 
     function displayData(cityData) {
@@ -47,7 +85,7 @@
         temperature = ((cityData.main.temp) - 273.15).toFixed()
         windspeed = cityData.wind.speed
         condition = cityData.weather[0].description
-        country=cityData.sys.country
+        country = cityData.sys.country
 
         result.innerHTML = `
         <img src="./image/weather-2021-12-07.png" alt="">
@@ -57,10 +95,12 @@
         <h2 class="desc"><span><i class="fa-duotone fa-cloud-bolt-sun"></i> </span>${condition} </h2>
         <hr>
         <h4 class="wind"><span> <i class="fa-solid fa-wind"></i> </span>Wind Speed: ${windspeed}km/h</h4>
-        <h4 class="hum"><span> <i class="fa-solid fa-droplet"></i> </span> Humidity: ${ humid}%</h4>
+        <h4 class="hum"><span> <i class="fa-solid fa-droplet"></i> </span> Humidity: ${humid}%</h4>
+
 
 
         `
+
     }
 </script>
 

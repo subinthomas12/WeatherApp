@@ -8,12 +8,29 @@
     box-sizing: border-box;
 }
 
+
 body{
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     background-image: url("./image/image_processing20200301-18871-10tt831.png");
+}
+
+
+#time{
+    position: absolute;
+    top: 90%;
+    /* justify-items: center; */
+    /* margin-left: 70px; */
+    font-size: small;
+    font-weight: bold;
+    color: #06283d;
+    /* background-color: #fff; */
+    font-family: 'Roboto', sans-serif;
+    float: right;
+    padding-left: 300px;
+
 }
 
 .weather-app{
